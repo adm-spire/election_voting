@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 0 20px;
+        text-align: center;
+    }
+    h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+    .form-heading {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    .response {
+        margin-top: 20px;
+    }
+    button{
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 5%;
+
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Admin</h1>
+    
+    <button id="candidateCount">Candidate Count</button>
+    <form id="candidatesForm">
+        <h2 class="form-heading">Candidates</h2>
+        <input type="text" name="candidateName" placeholder="Enter candidate number" id="candidateName">
+        <br>
+        <input type="submit" value="Candidate value" id="addCandidateButton">
+    </form>
+    <form id="addCandidate">
+        <h2 class="form-heading">Add Candidate</h2>
+        <input type="text" name="candidateDetails" placeholder="Enter candidate name" id="candidateDetails">
+        
+        <br>
+        
+        <input type="submit" value="Add" id="addCandidateButton">
+    </form>
+    <div id="candidateCountResponse" class="response"></div>
+    <div id="AddResponse" class="response"></div>
+    <div id="candidatesResponse" class="response"></div>
+</div>
+
+<script>
+    
+
+
+    document.getElementById('candidateCount').addEventListener('click', function() {
+        fetch('http://localhost:3300/candidate_count', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('candidateCountResponse').innerText = 'Number of candidates: ' + data.count;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    document.getElementById('candidatesForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const candidateNumber1 = document.getElementById('candidateName').value;
+        fetch('http://localhost:3300/candidates', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ candidateNumber1 })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('candidatesResponse').innerText = data.message;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    document.getElementById('addCandidate').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const candidateDetails = document.getElementById('candidateDetails').value;
+        
+        
+    
+        fetch('http://localhost:3300/addCandidate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({candidateDetails})
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('AddResponse').innerText = data.message;
+        })
+        .catch(error => console.error('Error:', error));
+    
+    });
+</script>
+
+</body>
+</html>
