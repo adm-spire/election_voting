@@ -9,3 +9,5 @@
 > - evm.sol is the smart contract written in solidity language.
 > - web3.js helps in communicating with the smart contract written in solidity .
 
+![](https://github.com/adm-spire/election_voting/blob/master/img1.jpg)
+![](https://github.com/adm-spire/election_voting/blob/master/img2.jpg)
