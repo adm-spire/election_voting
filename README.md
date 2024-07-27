@@ -6,3 +6,6 @@
 > - main.html is the page where eligible voters can give vote , if they have already voted they can't vote again.
 > - server.js is the backend logic communicating with front end pages and ganache.
 > - entire evm_project should be present on your system so that all dependencies are available.
+> - evm.sol is the smart contract written in solidity language.
+> - web3.js helps in communicating with the smart contract written in solidity .
+
